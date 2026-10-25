@@ -1,0 +1,42 @@
+* Modelos simplificados, usados somente na simulacao do LTspice.
+* Nao representam o hardware real: servem para o esquema "fechar" e simular.
+
+* Arduino Uno: entradas em alta impedancia, D2 com pull-up interno e D8 gerando 1 kHz (autoteste)
+.subckt UNO_ESP A0 A1 D2 D8 SDA SCL V5 GNDP
+R_A0 A0 GNDP 100Meg
+R_A1 A1 GNDP 100Meg
+R_D2 V5 D2 35k
+V_D8 D8 GNDP PULSE(0 5 0 1n 1n 500u 1m)
+R_SDA SDA GNDP 100Meg
+R_SCL SCL GNDP 100Meg
+R_V5 V5 GNDP 250
+.ends UNO_ESP
+
+.subckt UNO_OSC A0 A1 D2 D3 D8 SDA SCL V5 GNDP
+R_A0 A0 GNDP 100Meg
+R_A1 A1 GNDP 100Meg
+R_D2 V5 D2 35k
+R_D3 V5 D3 35k
+V_D8 D8 GNDP PULSE(0 5 0 1n 1n 500u 1m)
+R_SDA SDA GNDP 100Meg
+R_SCL SCL GNDP 100Meg
+R_V5 V5 GNDP 250
+.ends UNO_OSC
+
+* OLED SSD1306 I2C (o modulo traz pull-ups de SDA/SCL)
+.subckt OLED_I2C SDA SCL VCC GNDP
+R_VCC VCC GNDP 5k
+R_SDA VCC SDA 10k
+R_SCL VCC SCL 10k
+.ends OLED_I2C
+
+* Potenciometro 10k (cursor no meio)
+.subckt POT10K A W B
+R1 A W 5k
+R2 W B 5k
+.ends POT10K
+
+* Botao normalmente aberto
+.subckt BTN P1 P2
+R1 P1 P2 1G
+.ends BTN
